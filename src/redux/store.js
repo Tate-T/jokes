@@ -3,6 +3,8 @@ import {jokesApi} from './jokesApi';
 
 import { setupListeners } from '@reduxjs/toolkit/query';
 
+import { filterReducer } from './filterReducer';
+
 export const store = configureStore({
     reducer: {
         [jokesApi.reducerPath]: jokesApi.reducer,
