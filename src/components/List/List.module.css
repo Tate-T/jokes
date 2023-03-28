@@ -14,7 +14,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
 }
 
 .jokesCard {
@@ -23,7 +23,7 @@ p {
   background-color: skyblue;
   color: aliceblue;
   min-height: 200px;
-  flex-basis: calc((100% - 4 * 30px) / 4);
+  flex-basis: calc((100% - 4 * 20px) / 4);
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -87,4 +87,9 @@ button:hover {
     font-weight: 700;
 
   flex-basis: calc((100% - 4 * 5px) / 4);
+}
+
+.jokesLoad {
+  display: block;
+  margin: 30px auto;
 }
