@@ -6,10 +6,10 @@ import './App.css';
 
  const App = () => {
   return (
-    <Container className="App">
-      <List/>
-      <p>hello</p>
-      <Btn/>
+    <Container >
+      <h1 className='animate__heartBeat'>Jokes</h1>
+      <List />
+      {/* <Btn/> */}
     </Container>
   );
 }
