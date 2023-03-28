@@ -81,14 +81,14 @@ export const List = ({ filter }) => {
             </li>
           ))}
       </ul>
-
-      <Button
-        variant="contained"
-        onClick={() => dispatch(requestRefreshJokes())}
-        className={s.jokesLoad}
-      >
-        Load more
-      </Button>
+      <div className={s.jokesLoad}>
+        <Button
+          variant="contained"
+          onClick={() => dispatch(requestRefreshJokes())}
+        >
+          Load more
+        </Button>
+      </div>
     </>
   );
 };
