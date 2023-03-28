@@ -6,21 +6,27 @@ export const jokesApi = createApi({
     baseUrl: 'https://official-joke-api.appspot.com/jokes',
   }),
   endpoints: (builder) => ({
-    getJokes: builder.mutation({
+    getJokes: builder.query({
       query: () => `/ten`,
     }),
-    addJokes: builder.mutation({
-      query: (joke) => `/jokes/${joke}`,
-    }),
-    deleteJoke: builder.mutation({
-      query: (id) => `/jokes/${id}`,
-    }),
-    refreshJokes: builder.mutation({
-        query: () => `/ten`,
+    addJoke: builder.mutation({
+      query(jokeId) {
+        return {
+          url: `/`,
+          method: 'PUT',
+          body: { jokeId },
+        }
+      }
       }),
+    deleteJoke: builder.mutation({
+      query: (id) => `/${id}`,
+    }),
+    // refreshJokes: builder.query({
+    //     query: () => `/random`,
+    //   }),
   }),
 })
 
 
-export const { useGetJokesQuery, useAddJokeMutation, useDeleteJokesMutation, useRefreshJokeMutation } = jokesApi;
+export const { useGetJokesQuery, useAddJokeMutation, useDeleteJokeMutation, useRefreshJokesMutation } = jokesApi;
 

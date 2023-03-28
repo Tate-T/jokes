@@ -1,12 +1,21 @@
 import s from './List.module.css';
-import React from 'react';
-import { useGetJokesQuery, useDeleteJokesMutation } from '../../redux/jokesApi';
+import React, { useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { addJoke, deleteJoke, requestJokes, requestRefreshJokes } from '../../redux/jokesReducer';
 
 export const List = ({ filter }) => {
-  // const response = useGetJokesQuery();
-  // const { data: jokes} = response;
+  //const { data, error, isLoading } = useGetJokesQuery();
+//   console.log('data: ', data);
+    const jokes = useSelector((state) => state.jokes.jokes);
+    const favJokes = useSelector((state) => state.jokes.favJokes)
+    const isLoading = useSelector((state) => state.jokes.isLoading);
+    const dispatch = useDispatch();
+ // const [deleteJoke] = useDeleteJokeMutation();
 
-  // const [deleteJoke] = useDeleteJokesMutation();
+ useEffect(() => {
+    dispatch(requestJokes());
+ }, [dispatch])
 
   // const findJokes = () => {
   //     if (!filter) {
@@ -15,18 +24,48 @@ export const List = ({ filter }) => {
   //      return jokes?.filter(joke => joke.id.toLowerCase().includes(filter?.toLowerCase())) || [];
   // }
 
+  const finalJokes = [...favJokes, ...jokes];
   return (
     <ul className={s.jokesList}>
-      {/* {findJokes().map(joke => (
-                <li className={s.jokeItem} key={joke.id}>
-                    <p className={s.jokeText}>{joke.name}</p>
-                    <button type='button' className={s.deletBtn}>Delete</button>
-                </li>
+
+      {finalJokes?.length > 0 && finalJokes.map(joke => (
+                <li className={s.jokesCard}>
+                <div className={s.jokesContent}>
+                  <p className={s.jokesType}>
+                    Type: <span className={s.jokesName}>{joke.type}</span>
+                  </p>
+                  <p className={s.jokesId}>ID: {joke.id}</p>
+                </div>
+                <h3 className={s.jokesSetup}>Setup:</h3>
+                <p className={s.jokesText}>{joke.setup}</p>
+                <h3 className={s.jokesPunchline}>Punchline:</h3>
+                <p className={s.jokesText}>{joke.punchline}</p>
+                <ul className={s.jokesBtns}>
+                  <li className={s.jokesBtn}>
+                    <button onClick={()=> dispatch(deleteJoke(joke))} className={s.jokesDel} type="button">
+                      Delete
+                    </button>
+                  </li>
+                  <li className={s.jokesBtn}>
+                    <button onClick={()=> dispatch(addJoke(joke))} className={s.jokesAdd} type="button">
+                      Add
+                    </button>
+                  </li>
+                  <li className={s.jokesBtn}>
+                    <button onClick={()=> {
+                        dispatch(deleteJoke(joke))
+                        dispatch(requestRefreshJokes())
+                        }}  className={s.jokesRefresh} type="button">
+                      Refresh
+                    </button>
+                  </li>
+                </ul>
+              </li>
             ))
 
-            } */}
+            }
 
-      <li className={s.jokesCard}>
+      {/* <li className={s.jokesCard}>
         <div className={s.jokesContent}>
           <p className={s.jokesType}>
             Type: <span className={s.jokesName}>General</span>
@@ -264,7 +303,8 @@ export const List = ({ filter }) => {
             </button>
           </li>
         </ul>
-      </li>
+      </li> */}
+      <button onClick={() => dispatch(requestRefreshJokes())}>Load more</button>
     </ul>
   );
 };

@@ -22,7 +22,7 @@ p {
   border-radius: 10px;
   background-color: skyblue;
   color: aliceblue;
-  height: 200px;
+  min-height: 200px;
   flex-basis: calc((100% - 4 * 30px) / 4);
   padding: 10px;
   display: flex;
@@ -53,6 +53,7 @@ h3 {
 }
 
 .jokesName, .jokesId {
+  text-transform: capitalize;
     color: rgb(23, 98, 162);
 }
 
@@ -71,6 +72,11 @@ h3 {
 
 .jokesCard:hover .jokesBtns{
   opacity: 1;
+}
+
+button:hover {
+  box-shadow: 5px 5px 5px 5px rgba(208, 192, 12, 0.12), 0px 1px 5px 1px rgba(104, 138, 231, 0.14), 0px 2px 3px 1px rgba(26, 120, 191, 0.507);
+
 }
 
 .jokesBtn button{

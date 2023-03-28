@@ -1,18 +1,37 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import {jokesApi} from './jokesApi';
-
-import { setupListeners } from '@reduxjs/toolkit/query';
+import {
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+  } from "redux-persist";
+  import storage from "redux-persist/lib/storage";
 
 import { filterReducer } from './filterReducer';
+import jokesReducer from './jokesReducer';
+
+const jokesConfig = {
+    key: "jokes",
+    storage,
+    whitelist: ["favJokes"]
+};
 
 export const store = configureStore({
     reducer: {
-        [jokesApi.reducerPath]: jokesApi.reducer,
+        jokes: persistReducer(jokesConfig,jokesReducer) ,
         filter: filterReducer,
     },
-    middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware().concat(jokesApi.middleware);
-    },
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
     devTools: process.env.NODE_ENV !== 'production', // true
 });
-setupListeners(store.dispatch)
+
+export const persistor = persistStore(store);
