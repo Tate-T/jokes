@@ -1,3 +1,3 @@
 import { createAction } from "@reduxjs/toolkit";
 
-export const addToFilterState = createAction('jokelist/addToFilterState');
+export const addToFilterState = createAction('jokes/addToFilterState');

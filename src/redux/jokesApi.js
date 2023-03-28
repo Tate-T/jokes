@@ -1,13 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const jokesApi = createApi({
   reducerPath: 'jokes',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://official-joke-api.appspot.com',
+    baseUrl: 'https://official-joke-api.appspot.com/jokes',
   }),
   endpoints: (builder) => ({
     getJokes: builder.mutation({
-      query: () => `/jokes`,
+      query: () => `/ten`,
     }),
     addJokes: builder.mutation({
       query: (joke) => `/jokes/${joke}`,
@@ -16,11 +16,11 @@ export const jokesApi = createApi({
       query: (id) => `/jokes/${id}`,
     }),
     refreshJokes: builder.mutation({
-        query: () => `/jokes`,
+        query: () => `/ten`,
       }),
   }),
 })
 
 
-export const { useGetJokesQuery, useAddJokeMutation, useDeleteJokeMutation, useRefreshJokeMutation } = jokesApi;
+export const { useGetJokesQuery, useAddJokeMutation, useDeleteJokesMutation, useRefreshJokeMutation } = jokesApi;
 
